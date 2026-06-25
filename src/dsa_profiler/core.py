@@ -2,6 +2,9 @@ import functools
 import time
 import tracemalloc
 from typing import Any,Callable,Dict
+from src.dsa_profiler.storage import StorageEngine
+
+storage=StorageEngine()
 
 def profile_dsa(problem_id:str,run_name:str,iteration:int=5)->Callable:
     
@@ -32,9 +35,12 @@ def profile_dsa(problem_id:str,run_name:str,iteration:int=5)->Callable:
             median_time_ms=execution_times[len(execution_times)//2]
             peak_memory_mb=peak_bytes/(1024*1024)
             
-            print(f"\n[DSA Profiler] Probing Results for: '{problem_id}' ({run_name})")
-            print(f"  - Median Execution Time : {median_time_ms:.4f} ms (over {iteration} runs)")
-            print(f"  - Peak Memory Consumption: {peak_memory_mb:.4f} MB")
+            storage.save_run(problem_id,run_name,median_time_ms,peak_memory_mb)
+            
+            historical_runs=storage.get_history(problem_id=problem_id)
+            
+            print(f"\n[DSA Profiler] Solution '{run_name}' saved successfully.")
+            print(f"Total runs recorded for '{problem_id}': {len(historical_runs)}")
             print("-" * 60)
             
             return result
