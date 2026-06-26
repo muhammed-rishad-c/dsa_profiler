@@ -1,13 +1,19 @@
 import time
 from src.dsa_profiler.core import profile_dsa
 
-@profile_dsa(problem_id="two_sum",run_name="brute_force",iteration=5)
-def brute_force_simulation(n):
-    data_list=[i for i in range(n)]
-    time.sleep(0.05)
-    return sum(data_list)
+@profile_dsa(problem_id="two-sum", run_name="brute-force", iteration=3)
+def solve_via_brute():
+    # Simulate high complexity loop latency
+    time.sleep(0.1) 
+    return "done"
 
-if __name__=="__main__":
-    print("starting student code simulation")
-    output=brute_force_simulation(1_000_000)
-    print(f"function output: {output}")
+@profile_dsa(problem_id="two-sum", run_name="hash-map-optimized", iteration=3)
+def solve_via_map():
+    # Simulate high speed indexed lookups
+    time.sleep(0.01)
+    return "done"
+
+if __name__ == "__main__":
+    print("Executing Solution Optimization Workflow Pipeline...\n")
+    solve_via_brute()
+    solve_via_map()

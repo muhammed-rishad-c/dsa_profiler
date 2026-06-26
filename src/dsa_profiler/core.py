@@ -3,6 +3,7 @@ import time
 import tracemalloc
 from typing import Any,Callable,Dict
 from src.dsa_profiler.storage import StorageEngine
+from src.dsa_profiler.reporter import ConsoleReporter
 
 storage=StorageEngine()
 
@@ -39,9 +40,13 @@ def profile_dsa(problem_id:str,run_name:str,iteration:int=5)->Callable:
             
             historical_runs=storage.get_history(problem_id=problem_id)
             
-            print(f"\n[DSA Profiler] Solution '{run_name}' saved successfully.")
-            print(f"Total runs recorded for '{problem_id}': {len(historical_runs)}")
-            print("-" * 60)
+            current_run_payload = {
+                "run_name": run_name,
+                "execution_time_ms": median_time_ms,
+                "peak_memory_mb": peak_memory_mb
+            }
+            
+            ConsoleReporter.generate_report(problem_id,current_run_payload,historical_runs)
             
             return result
         return wrapper
