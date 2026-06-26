@@ -1,19 +1,22 @@
 import time
-from src.dsa_profiler.core import profile_dsa
+from src.dsa_profiler.core import profile_big_o
 
-@profile_dsa(problem_id="two-sum", run_name="brute-force", iteration=3)
-def solve_via_brute():
-    # Simulate high complexity loop latency
-    time.sleep(0.1) 
-    return "done"
+@profile_big_o(n_range=[100, 500, 1000, 2000])
+def simulate_linear(n):
+    # O(N) loop simulation
+    for i in range(n):
+        pass
+    time.sleep(n * 0.00001) # Realistic scaling delay
 
-@profile_dsa(problem_id="two-sum", run_name="hash-map-optimized", iteration=3)
-def solve_via_map():
-    # Simulate high speed indexed lookups
-    time.sleep(0.01)
-    return "done"
+@profile_big_o(n_range=[100, 500, 1000, 2000])
+def simulate_quadratic(n):
+    # O(N^2) nested loop simulation
+    for i in range(n):
+        for j in range(100): # simulated inner growth workload
+            pass
+    time.sleep((n ** 2) * 0.00000001) # Quadratic scaling delay
 
 if __name__ == "__main__":
-    print("Executing Solution Optimization Workflow Pipeline...\n")
-    solve_via_brute()
-    solve_via_map()
+    simulate_linear()
+    print("-" * 60)
+    simulate_quadratic()
