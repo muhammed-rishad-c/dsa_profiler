@@ -2,9 +2,9 @@ import functools
 import time
 import tracemalloc
 from typing import Any,Callable,Dict,List
-from src.dsa_profiler.storage import StorageEngine
-from src.dsa_profiler.reporter import ConsoleReporter
-from src.dsa_profiler.analyzer import BigOAnalyzer
+from dsa_profiler.storage import StorageEngine
+from dsa_profiler.reporter import ConsoleReporter
+from dsa_profiler.analyzer import BigOAnalyzer
 
 storage=StorageEngine()
 
